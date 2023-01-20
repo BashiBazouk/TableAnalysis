@@ -1,0 +1,71 @@
+
+# imports
+import pandas as pd
+
+RosiePath = 'validationStatus5.xlsx'
+print("Rosie Data Loading:")
+RosieData = pd.read_excel(RosiePath,
+                        usecols=['quote number', 'pos', 'sapExText', 'decision', 'OPCcaseCreated', 'validation status'],
+                        squeeze=True,
+                        sheet_name='Sheet1'
+                          )
+
+OPCNotCreated = RosieData['OPCcaseCreated'] == 'No'
+isApproved = RosieData['decision'] == 'Yes'
+
+containsElement = RosieData['sapExText'].str.contains('Element')
+
+isV200 = RosieData['sapExText'].str.contains('Id:V200') | \
+         RosieData['sapExText'].str.contains('Id:V200E') | \
+         RosieData['sapExText'].str.contains('Id:V200i') | \
+         RosieData['sapExText'].str.contains('Id:VELFAC_EDG')
+
+# isV200 =        RosieData['sapExText'].str.contains('Id:V200')
+# isV200E =       RosieData['sapExText'].str.contains('Id:V200E')
+# isV200i =       RosieData['sapExText'].str.contains('Id:V200i')
+# isVELFAC_EDG =  RosieData['sapExText'].str.contains('Id:VELFAC_EDG')
+
+isGP21 = RosieData['sapExText'].str.contains('Id:RIBO_ALU_2') | \
+        RosieData['sapExText'].str.contains('Id:RIBO_WOOD') | \
+         RosieData['sapExText'].str.contains('Id:AURA2015') | \
+         RosieData['sapExText'].str.contains('Id:AURAPLUS20') | \
+         RosieData['sapExText'].str.contains('Id:CLASSIC_AL') | \
+         RosieData['sapExText'].str.contains('Id:CLASSIC_WO') | \
+         RosieData['sapExText'].str.contains('Id:FORMA2015') | \
+         RosieData['sapExText'].str.contains('Id:FORMAPLUS2')
+lSystems = [isV200, isGP21]
+sSystemsNames = ['V200', 'GP21']
+isKrone = RosieData['sapExText'].str.contains('Id:VELFAC_IN') | RosieData['sapExText'].str.contains('Id:AURAPLUS_I')
+
+isVelfacIn = RosieData['sapExText'].str.contains('Id:VELFAC_IN')
+isAURAPLUS_I = RosieData['sapExText'].str.contains('Id:AURAPLUS_I')
+
+isStatusEqualFive = RosieData["validation status"] == 5
+isTestQuote = RosieData['quote number'] == 20139832
+isTITUD = RosieData['sapExText'].str.contains('TITUD')
+
+lOpeningFunctions = ['SHO', 'SGO', 'SHRO', 'FL', 'FC', 'SCD:SR','SCD:SL','SCD:R','SCD:L', 'THRO', 'THROX', 'THO', 'TGO', 'FCC', 'BHI', 'BHO', 'TUD',
+                     'TITUD', 'TITU', 'CDO', 'PDO', 'PDI', 'EDO', 'EDI', 'Element']
+
+outFile = 'outFile2.xlsx'
+
+iSystemCount = 0
+for system in lSystems:
+    iOpeningCount = 0
+    for openning in lOpeningFunctions:
+        fOpening = RosieData['sapExText'].str.contains(openning)
+        if not RosieData[OPCNotCreated & system & fOpening].empty:
+            print('System: '+ sSystemsNames[iSystemCount]+
+                  ' Opening: '+ lOpeningFunctions[iOpeningCount] +
+                  ' Items in status 5: ' + str(len(RosieData[isApproved & OPCNotCreated & system & fOpening])))
+            sheet_name = (sSystemsNames[iSystemCount]+lOpeningFunctions[iOpeningCount].replace(':',''))
+
+            with pd.ExcelWriter(outFile, mode='a') as writer:
+                RosieData[isApproved & OPCNotCreated & system & fOpening].to_excel(writer, sheet_name=sheet_name)
+
+        iOpeningCount += 1
+    iSystemCount +=1
+
+print("End Program!")
+
+
