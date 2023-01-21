@@ -40,9 +40,9 @@ more info in<br>
 [official Pandas documentation](https://pandas.pydata.org/docs/reference/api/pandas.read_excel.html)<br>
 
 2. Seting filters<br>
-just like in excel filter can be set to look for strings. In Pandas:
+just like in excel filter can be set to look for strings. In Pandas:<br>
 `isOpening1 = DataFrame['ColumnWithOpenings'].str.contains('opening1')`<br>
-ypu can combine filters wit python operators:
+you can combine filters wit python operators:<br>
 `isWindowSystem = DataFrame['ColumnWithWindowSystem'].str.contains('system1') |`<br>
 `		  DataFrame['ColumnWithWindowSystem'].str.contains('system2')`<br>
 when you apply filters to data frame you will get only data (another data frame) with only desired data.<br>
@@ -53,13 +53,14 @@ Now just wrap it in two loops (as my data was only two levels deep):<br>
 	`for opening in openings`<br>
 		`DataFrame[filters].to_excel()`<br>
 <br>
-Please check<br> [Pandas saving data frame to excel](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.to_excel.html) <br>
+more details in:<br>
+[Pandas saving data frame to excel](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.to_excel.html) <br>
 
 as a result you'll get new sheet only with rows which fit the filters.<br>
 at this point by changing filters you can filter out intersting data in seconds.<br>
 
 ## todo
-[ ] remove hardcoding
-[ ] check if "with" statement should be moved before loops. It's working, but it's quite slow at this moment
-[ ] move filters and list to separate file, not to edit main script all the time
-[ ] add "try catch" for now I need to take care that all data is in place before running script
+[ ] remove hardcoding<br>
+[ ] check if "with" statement should be moved before loops. It's working, but it's quite slow at this moment<br>
+[ ] move filters and list to separate file, not to edit main script all the time<br>
+[ ] add "try catch" for now I need to take care that all data is in place before running script<br>
