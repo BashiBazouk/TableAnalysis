@@ -3,8 +3,8 @@ import pandas as pd
 
 # hardcodes
 
-input_file = 'validationStatus5.xlsx'
-output_file = 'outFile2.xlsx'
+input_file = 'inFile.xlsx'
+output_file = 'outFile.xlsx'
 
 print("Loading data from excel now")
 
@@ -36,19 +36,19 @@ isFoo_2 = DataFrame['foo_text'].str.contains('foo_2') | \
 
 # list of systems to iterate to:
 lSystems = [isFoo_1, isFoo_2]
-
 sSystemsNames = ['Foo_1', 'Foo_2']
 
 # list of opening functions: 
 # todo move lists to external file, for clarification and ease of editing
-lOpeningFunctions = ['bar_1', 'bar_2', 'bar_3', 'bar_4']
+# in original script there are much more openings, but removed for clarity
+lOpeningFunctions = ['bar_1', 'bar_2', 'bar_3', 'bar_4'] 
 
 # iterate over system, over opening function
 iSystemCount = 0
 for system in lSystems:
     iOpeningCount = 0
-    for openning in lOpeningFunctions:
-        fOpening = DataFrame['foo_text'].str.contains(openning)
+    for opening in lOpeningFunctions:
+        fOpening = DataFrame['foo_text'].str.contains(opening)
         if not DataFrame[isRequest_created & system & fOpening].empty:
 
             # some terminal output for quick check how script works
