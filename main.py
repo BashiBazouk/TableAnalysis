@@ -1,7 +1,7 @@
 # imports
 import pandas as pd
 
-# hardcodes
+# hardcoded values
 
 input_file = 'inFile.xlsx'
 output_file = 'outFile.xlsx'
@@ -14,7 +14,7 @@ DataFrame = pd.read_excel(input_file,
                         squeeze=True,
                         sheet_name='Sheet1'
                           )
-                          
+
 # example of filters:
 # bool filters
 isRequest_created = DataFrame['request_created'] == 'No'

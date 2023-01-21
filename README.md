@@ -1,4 +1,4 @@
-# Move data from original sheet to subsheets - excel but with Python Pandas
+# Copy data from original sheet to subsheets based on data in columns - excel filtering but with Python Pandas
 
 ## Purpose
 I've had a repetetive analysis task - create sheets with data from original report from another software. Unfortunately data is not easy to filter, as interestind data is in one long string of data. At start one column must be splitted in few more columns. Filter out interesting data, move it to another tab, write down some results, rinse and reapeat. 
@@ -6,31 +6,31 @@ Why not do it in different way? Why not learn something new?
 I've did few scripts with Python Pandas library, it seems to be ideal opportunity to do something new.
 
 ## Description, How it works
-Instead of making combinations of filters in excel and then copying filtered data we can make algorithm of this. Simplified structure of data is:<br>
-data
-  |
-  +--->system1
-  |      |
-  |      +--->opening1
-  |      |
-  |      +--->opening2
-  |      |
-  |      +--->...
-  |
-  +--->system2
-  |      |
-  |      +--->opening1
-  |      |
-  |      +--->opening2
-  |      |
-  |      +--->...
-  |
-  +--->...
-
-
+Instead of making combinations of filters in excel and then copying filtered data we can make algorithm of this.<br>
+ Simplified structure of data is:<br>
+`data`<br>
+`  |`<br>
+`  +--->system1`<br>
+`  |      |`<br>
+`  |      +--->opening1`<br>
+`  |      |`<br>
+`  |      +--->opening2`<br>
+`  |      |`<br>
+`  |      +--->...`<br>
+`  |`<br>
+`  +--->system2`<br>
+`  |      |`<br>
+`  |      +--->opening1`<br>
+`  |      |`<br>
+`  |      +--->opening2`<br>
+`  |      |`<br>
+`  |      +--->...`<br>
+`  |`<br>
+`  +--->...`<br>
+so, go in original sheet1, filter by `system1`, look for `opening1`, export to new tab, calculate how many rows, filter by `system1`, look for `opening2` ...<br>
 as a result we should have excel with sheets: `system1opening1`, `system1opening2`, ...<br>
-this is how to do it with [Pandas](https://pandas.pydata.org/)<br><br>
 
+## How to script it:
 
 1. First of all we need to load data from excel to Pandas data frame object like this:<br><br>
 `table = pandas.read_excel(file, usecols=['col1','col2'], sheetname='Sheet1')`<br>
@@ -56,7 +56,7 @@ Now just wrap it in two loops (as my data was only two levels deep):<br>
 Please check<br> [Pandas saving data frame to excel](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.to_excel.html) <br>
 
 as a result you'll get new sheet only with rows which fit the filters.<br>
-at this point by changing filters you can filter out intersting data in seconds.
+at this point by changing filters you can filter out intersting data in seconds.<br>
 
 ## todo
 [ ] remove hardcoding
