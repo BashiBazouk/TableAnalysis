@@ -8,25 +8,25 @@ I've did few scripts with Python Pandas library, it seems to be ideal opportunit
 ## Description, How it works
 Instead of making combinations of filters in excel and then copying filtered data we can make algorithm of this.<br>
  Simplified structure of data is:<br>
-`data`<br>
-`  |`<br>
-`  +--->system1`<br>
-`  |      |`<br>
-`  |      +--->opening1`<br>
-`  |      |`<br>
-`  |      +--->opening2`<br>
-`  |      |`<br>
-`  |      +--->...`<br>
-`  |`<br>
-`  +--->system2`<br>
-`  |      |`<br>
-`  |      +--->opening1`<br>
-`  |      |`<br>
-`  |      +--->opening2`<br>
-`  |      |`<br>
-`  |      +--->...`<br>
-`  |`<br>
-`  +--->...`<br>
+data<br>
+  |<br>
+  +--->system1<br>
+  |      |<br>
+  |      +--->opening1<br>
+  |      |<br>
+  |      +--->opening2<br>
+  |      |<br>
+  |      +--->...<br>
+  |<br>
+  +--->system2<br>
+  |      |<br>
+  |      +--->opening1<br>
+  |      |<br>
+  |      +--->opening2<br>
+  |      |<br>
+  |      +--->...<br>
+  |<br>
+  +--->...<br>
 so, go in original sheet1, filter by `system1`, look for `opening1`, export to new tab, calculate how many rows, filter by `system1`, look for `opening2` ...<br>
 as a result we should have excel with sheets: `system1opening1`, `system1opening2`, ...<br>
 
