@@ -54,7 +54,7 @@ Now just wrap it in two loops (as my data was only two levels deep):<br>
 		`DataFrame[filters].to_excel()`<br>
 <br>
 more details in:<br>
-[Pandas saving data frame to excel](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.to_excel.html) <br>
+[Pandas saving data frame to excel](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.to_excel.html)<br>
 
 as a result you'll get new sheet only with rows which fit the filters.<br>
 at this point by changing filters you can filter out intersting data in seconds.<br>
